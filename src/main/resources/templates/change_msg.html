@@ -1,0 +1,124 @@
+<!doctype html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>修改个人信息</title>
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        个人信息修改
+                    </div>
+
+                    <form id="save_form" action="/employee/changeMyMsg" method="post">
+                        <div class="card-body">
+                            <div class="row mb-5">
+                                <div class="col-md-4 mb-4">
+                                    <div>你好，<span th:text="${userName}"></span></div>
+                                    <div class="text-muted small">以下是你可以修改的信息</div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">手机号码</label>
+                                                <input type="hidden" id="userId" name="userId" th:value="${userId}"/>
+                                                <input type="hidden" id="userName" name="userName" th:value="${userName}"/>
+                                                <input class="form-control" id="phone" name="phone">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">邮箱地址</label>
+                                                <input class="form-control" name="email">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">籍贯</label>
+                                                    <input class="form-control" id="hometown" name="hometown">
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row mt-5">
+                                <div class="col-md-4 mb-4">
+                                    <div>修改密码</div>
+                                    <div class="text-muted small">若不修改密码，则不需要在输入框输入</div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">请输入新密码</label>
+                                                <input type="password" class="form-control" id="pwd" name="pwd">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">请确认你的密码</label>
+                                                <input type="password" class="form-control" id="pwd_confirm" name="pwd_confirm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-light text-right">
+                            <button id="save" type="submit" class="btn btn-primary">保存修改</button>
+                            <!--<a id="cancel"><button class="btn btn-primary">取消修改</button></a>-->
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper.js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/chart.js/chart.min.js"></script>
+<script>
+    $("#save").click(function () {
+        var pwd=$("#pwd").val();
+        var pwd_confirm=$("#pwd_confirm").val();
+        if(pwd!=pwd_confirm){
+            alert("输入密码不一致");
+            return false;
+        }
+        $("#save_form").submit();
+    });
+
+    /*$(document).ready(function () {
+        var userId=$("#userId").val();
+        alert(userId);
+        $("#cancel").attr("href","/employee/getMyMsg");
+     });*/
+</script>
+</body>
+</html>

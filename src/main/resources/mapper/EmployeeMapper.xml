@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codejie.pms.mapper.EmployeeMapper">
+
+    <select id="getAddPoint" parameterType="com.codejie.pms.entity.AddPoint" resultType="com.codejie.pms.entity.AddPoint">
+        select addId,addDesc,addPoint,userId,userName,addTime  from add_point
+        where userId=#{userId}
+        <if test="addDesc !=null and addDesc !=''">
+            and addDesc like concat('%',#{addDesc},'%')
+        </if>
+        <if test="addPoint !=null and addPoint !=''">
+            and addPoint=#{addPoint}
+        </if>
+        order by addTime desc
+    </select>
+
+    <select id="getDeletePoint" parameterType="com.codejie.pms.entity.DeletePoint"
+            resultType="com.codejie.pms.entity.DeletePoint">
+        select * from delete_point
+        where userId=#{userId}
+        <if test="deleteDesc !=null and deleteDesc !=''">
+            and deleteDesc like concat('%',#{deleteDesc},'%')
+        </if>
+        <if test="deletePoint !=null and deletePoint !=''">
+            and deletePoint=#{deletePoint}
+        </if>
+        order by deleteTime desc
+    </select>
+
+    <select id="getPunishList" parameterType="com.codejie.pms.entity.Punish" resultType="com.codejie.pms.entity.Punish">
+        select * from punish
+        where userId=#{userId}
+        <if test="punishReason !=null and punishReason !=''">
+            and punishReason like concat('%',#{punishReason},'%')
+        </if>
+        <if test="punishComplete !=null and punishComplete !=''">
+            and punishComplete=#{punishComplete}
+        </if>
+        <if test="punishDesc !=null and punishDesc !=''">
+            and punishDesc=#{punishDesc}
+        </if>
+        order by punishComplete desc,punishTime desc
+    </select>
+
+    <select id="getRewardList" parameterType="com.codejie.pms.entity.Reward" resultType="com.codejie.pms.entity.Reward">
+        select * from reward
+        where userId=#{userId}
+        <if test="rewardReason !=null and rewardReason !=''">
+            and rewardReason like concat('%',#{rewardReason},'%')
+        </if>
+        <if test="rewardDesc !=null and rewardDesc !=''">
+            and rewardDesc=#{rewardDesc}
+        </if>
+        order by rewardTime desc
+    </select>
+
+    <select id="getUserDepartment" parameterType="java.lang.String" resultType="com.codejie.pms.entity.Department">
+        select * from department t
+        where t.departmentId=(select departmentId from user u where u.userId=#{userId})
+    </select>
+
+    <select id="getDepartmentList" parameterType="com.codejie.pms.entity.Department" resultType="com.codejie.pms.entity.Department">
+        select * from department
+        where 1=1
+        <if test="departmentName!=null and departmentName!=''">
+            and departmentName like CONCAT('%',#{departmentName},'%')
+        </if>
+        <if test="departmentId!=null and departmentId!=''">
+            and departmentId like CONCAT('%',#{departmentId},'%')
+        </if>
+        order by departmentId
+    </select>
+
+    <select id="getUserExcellentKpi" parameterType="com.codejie.pms.entity.UserExcellentKpi" resultType="com.codejie.pms.entity.UserExcellentKpi">
+        select * from user_kpi
+    </select>
+
+</mapper>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的绩效信息</title>
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style type="text/css">
+        .table-responsive1 {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: -ms-autohiding-scrollbar
+        }
+
+        .table-responsive1 > .table-bordered {
+            border: 0
+        }
+        .col-md-6-2 {
+            position: relative;
+            width: 50%;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px
+        }
+
+        .col-md-6-2 {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+            max-width: 50%
+        }
+        .row {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: 15px;
+            margin-left: 15px
+        }
+    </style>
+</head>
+<body>
+<a href="/hr/addUser">
+    <button type="button" class="btn btn-primary">
+        <i class="fa fa-align-center"></i> &nbsp; 添加员工
+    </button>
+</a>
+<a href="/admin/initUpload">
+    <button type="button" class="btn btn-primary">
+        <i class="fa fa-align-center"></i> &nbsp; 批量导入
+    </button>
+</a>
+<a href="/admin/export">
+    <button type="button" class="btn btn-secondary">
+        <i class="fa fa-download"></i> &nbsp; 批量导出
+    </button>
+</a>
+<input type="hidden" th:value="${isSuccess}" id="isSuccess"/>
+                <div class="card">
+                    <div class="card-header bg-light">
+                        所有员工信息
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input id="userId" name="userId" class="form-control" placeholder="输入工号查询">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <button class="btn btn-rounded btn-primary" id="search_reward">搜索</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="table_add">
+                                <thead>
+                                <tr>
+                                    <th>工号</th>
+                                    <th>姓名</th>
+                                    <th>性别</th>
+                                    <th>部门编码</th>
+                                    <th>手机号码</th>
+                                    <th>绩效值</th>
+                                    <th>普通员工</th>
+                                    <th>操作</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-secondary btn-sm add">首页</button>
+                            <button type="button" class="btn btn-secondary btn-sm add">上一页</button>
+                            <button type="button" class="btn btn-secondary btn-sm add">下一页</button>
+                            <button type="button" class="btn btn-secondary btn-sm add">尾页</button>
+                        </div>
+                    </div>
+                </div>
+
+<div class="page-wrapper" id="user_msg" style="display: none">
+    <div class="main-container">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body p-0">
+
+                                <div class="row pb-5 p-5">
+                                    <div class="col-md-6">
+                                        <p class="font-weight-bold mb-4">员工信息</p>
+                                        <p class="mb-1" id="userName">姓名：</p>
+                                        <p id="gender">性别：</p>
+                                        <p class="mb-1" id="phone">手机号码：</p>
+                                        <p class="mb-1" id="email">邮箱：</p>
+                                    </div>
+
+                                    <div class="col-md-6 text-right">
+                                        <p class="font-weight-bold mb-4">详情</p>
+                                        <p class="mb-1" id="id"><span class="text-muted">工号: </span></p>
+                                        <p class="mb-1" id="pwd"><span class="text-muted">密码: </span></p>
+                                        <p class="mb-1" id="kpiSum"><span class="text-muted">考评总分: </span></p>
+                                        <p class="mb-1" id="departmentId"><span class="text-muted">所属部门: </span></p>
+                                        <p class="mb-1" id="hometown"><span class="text-muted">籍贯: </span></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper.js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/chart.js/chart.min.js"></script>
+<script src="/js/admin/all_user.js"></script>
+
+</body>
+</html>

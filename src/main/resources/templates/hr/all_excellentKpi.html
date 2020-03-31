@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>优秀绩效展示</title>
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div th:each="excellentKpi,excellentKpiStat : ${list}">
+    <div class="card">
+        <div class="card-header bg-light">
+            <b>优秀绩效员工：<span th:text="${excellentKpi.userName}"></span></b>
+        </div>
+        <div class="card-body">
+            <b>优秀绩效类别：<span th:text="${excellentKpi.kpiDegreeMs}"></span></b><br/><br/>
+            <b>优秀绩效事件：</b><span th:text="${excellentKpi.kpiMs}"></span><br/><br/>
+            <b>优秀绩效时间：</b><span th:text="${excellentKpi.kpiTime}"></span><br/><br/>
+            <b>处理：</b><span th:text="${excellentKpi.kpiResult}"></span><br/><br/>
+            <b>增加绩效值：</b><span th:text="${excellentKpi.kpiPoint}"></span>分<br/>
+        </div>
+    </div>
+</div>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper.js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/chart.js/chart.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加员工</title>
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        添加员工
+                    </div>
+                        <div class="card-body">
+                            <div class="row mb-5">
+                                <div class="col-md-4 mb-4">
+                                    <div>老师</div>
+                                    <div class="text-muted small">请添加员工的信息<br/>(员工密码默认123456,绩效值默认100)</div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">姓名</label>
+                                                <input class="form-control" id="userName" name="userName">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">工号</label>
+                                                <input class="form-control" id="userId" name="userId">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">性别</label>
+                                                <select id="gender"  class="form-control">>
+                                                    <option value="男">男</option>
+                                                    <option value="女">女</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">部门编码</label>
+                                                <input class="form-control" id="departmentId" name="departmentId">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">手机号码</label>
+                                                <input class="form-control" id="phone" name="phone">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">邮箱</label>
+                                                <input class="form-control" id="email" name="email">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label">籍贯</label>
+                                                <input class="form-control" id="hometown" name="hometown">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="toggle-switch" data-ts-color="primary">
+                                                <label for="permission" class="ts-label">是否实习HR</label>
+                                                <input id="permission" type="checkbox" hidden="hidden">
+                                                <label for="permission" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <hr>
+
+                        </div>
+
+                        <div class="card-footer bg-light text-right">
+                            <button id="save" class="btn btn-primary">添加</button>
+                            <a href="/hr/all_user"><button type="submit" class="btn btn-outline-danger">取消</button></a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper.js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/chart.js/chart.min.js"></script>
+<script>
+    $("#save").click(function () {
+        var userName=$("#userName").val();
+        var userId=$("#userId").val();
+        var gender=$("#gender").val();
+        var departmentId=$("#departmentId").val();
+        var phone=$("#phone").val();
+        var email=$("#email").val();
+        var hometown=$("#hometown").val();
+        var permissionDegree;
+        var permission = $('#permission:checked').val();
+        if(permission=="on"){
+            permissionDegree=2;
+        }else{
+            permissionDegree=3;
+        }
+        if(userName==null||userName==""){
+            alert("姓名为空");
+            return false;
+        }else if(userId==null||userId==""){
+            alert("工号为空");
+            return false;
+        }else if(gender==null||gender==""){
+            alert("性别为空");
+            return false;
+        }else if(departmentId==null||departmentId==""){
+            alert("部门编码为空");
+            return false;
+        }else if(phone==null||phone==""){
+            alert("手机号码为空");
+            return false;
+        }else if(email==null||email==""){
+            alert("邮箱为空");
+            return false;
+        }else if(hometown==null||hometown==""){
+            alert("籍贯为空");
+            return false;
+        }
+        var patrnPhone = /^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8,9]))[0-9]{8}$/
+        ;
+        if(!patrnPhone.test(phone))
+        {
+            alert('请输入正确的手机号码 ！');
+            return false;
+        }
+        var patrnEmail = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
+        if(!patrnEmail.test(email))
+        {
+            alert('请输入正确的邮箱地址 ！');
+            return false;
+        }
+        var data = {
+          "userName":userName,
+          "userId":userId,
+          "gender":gender,
+          "departmentId":departmentId,
+          "phone":phone,
+            "email":email,
+            "hometown":hometown,
+            "permissionDegree":permissionDegree,
+        };
+        $.ajax({
+            url : "/hr/haveId",     //后台请求的数据
+            data:data,
+            type : "get",                   //请求方式
+            async : true,                   //是否异步请求
+            success : function(data) {      //如果请求成功，返回数据。
+                if(data=="true"){
+                    alert("添加成功！");
+                    window.location.href='/hr/all_user';
+                }else{
+                    alert("已有此工号员工。");
+                }
+            },
+        });
+    });
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codejie.pms.mapper.UserMapper">
+
+    <select id="userLogin" resultType="com.codejie.pms.entity.User" parameterType="com.codejie.pms.entity.User">
+        SELECT
+        *
+        FROM
+        user
+        WHERE
+        userId = #{userId}
+        and pwd = #{pwd}
+    </select>
+
+    <select id="getPerList" resultType="com.codejie.pms.entity.Permission" parameterType="java.lang.String">
+        SELECT
+        *
+        FROM
+        permission
+        where permissionDegree=#{_parameter}
+        order by permissionId
+    </select>
+
+    <select id="getAdviceList" parameterType="com.codejie.pms.entity.Advice" resultType="com.codejie.pms.entity.Advice">
+        SELECT
+        *
+        FROM
+        advice
+        where
+        1=1
+        <if test="title != null and title != ''">
+            and title = #{title}
+        </if>
+        <if test="isSee != null and isSee != ''">
+            and isSee = #{isSee}
+        </if>
+        <if test="isCross != null and isCross != ''">
+            and isCross = #{isCross}
+        </if>
+        order by orderTime
+    </select>
+
+    <insert id="orderAdvice" parameterType="com.codejie.pms.entity.Advice">
+        insert into
+        advice(title, content, isCross, orderTime)
+        values(#{title},#{content},#{isCross},now())
+    </insert>
+
+    <update id="reviewAdvice" parameterType="com.codejie.pms.entity.Advice">
+        update from advice set
+          title=#{title},
+          content=#{content},
+          isCross=#{isCross},
+          orderTime=now()
+        where
+          adviceId=#{adviceId}
+    </update>
+
+    <insert id="addUser" parameterType="com.codejie.pms.entity.User">
+        insert into
+        user(userId,userName, pwd, permissionDegree, departmentId, kpiSum, hometown, phone, email, gender)
+        values(#{userId},#{userName},123456,#{permissionDegree},#{departmentId},100,#{hometown},#{phone},#{email},#{gender})
+    </insert>
+
+    <insert id="save" parameterType="com.codejie.pms.entity.User">
+        insert into
+        user(userId,userName, pwd, permissionDegree, departmentId, kpiSum, hometown, phone, email, gender)
+        values(#{userId},#{userName},#{pwd},#{permissionDegree},#{departmentId},#{kpiSum},#{hometown},#{phone},#{email},#{gender})
+    </insert>
+
+    <update id="updateUser" parameterType="com.codejie.pms.entity.User">
+        update user set
+          userName=#{userName},pwd=#{pwd},
+          permissionDegree=#{permissionDegree},
+          departmentId=#{departmentId},kpiSum=#{kpiSum}
+        where
+          userId=#{userId}
+    </update>
+
+    <update id="updateUserBySelf" parameterType="com.codejie.pms.entity.User">
+        update user set userId=#{userId}
+        <if test="pwd != null and pwd != ''">
+            ,pwd=#{pwd}
+        </if>
+        <if test="phone != null and phone != ''">
+            ,phone=#{phone}
+        </if>
+        <if test="email != null and email != ''">
+            ,email=#{email}
+        </if>
+        <if test="hometown != null and hometown != ''">
+            ,hometown=#{hometown}
+        </if>
+        where
+        userId=#{userId}
+    </update>
+
+    <delete id="deleteUser" parameterType="com.codejie.pms.entity.User">
+      delete from user where userId=#{userId}
+    </delete>
+
+    <select id="selectUser" resultType="com.codejie.pms.entity.User" parameterType="com.codejie.pms.entity.User">
+        SELECT
+        *
+        FROM
+        user
+        WHERE
+        userId = #{userId}
+    </select>
+
+    <select id="selectUserList" resultType="com.codejie.pms.entity.User" parameterType="com.codejie.pms.entity.User">
+        SELECT
+        *
+        FROM
+        user
+        where permissionDegree in(2,3)
+        <if test="userName!=null and userName!=''">
+            and userName like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="userId!=null and userId!=''">
+            and userId = #{userId}
+        </if>
+        <if test="departmentId!=null and departmentId!= ''">
+            and departmentId =#{departmentId}
+        </if>
+        order by kpiSum desc
+    </select>
+
+    <select id="selectUserList1" resultType="com.codejie.pms.entity.User">
+        SELECT
+        *
+        FROM
+        user
+        where permissionDegree in(2,3)
+        order by kpiSum desc
+    </select>
+
+
+    <select id="selectKpiList" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where 1=1
+        order by kpiId asc
+    </select>
+
+    <insert id="saveKpi" parameterType="com.codejie.pms.entity.Kpi">
+        insert into
+        kpi(kpiId,kpiName, kpiDescription, kpiGrading, kpiWeight)
+        values(#{kpiId},#{kpiName},#{kpiDescription},#{kpiGrading},#{kpiWeight})
+    </insert>
+
+
+</mapper>

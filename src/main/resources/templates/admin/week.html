@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>星期图表展示</title>
+    <link rel="stylesheet" href="/css/xark/style.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="grey_bg_outside_box">
+    <a href="/admin/upDepartment">
+        <button type="button" class="btn btn-primary">
+            <i class="fa fa-align-center"></i> &nbsp; 更新部门分数
+        </button>
+    </a>
+    <div class="main_content_box">
+        <ul class="legal_entity_status mt20 height-auto industry_first_line clearfix">
+            <li class="legal_entity_status_chart half_whole_box fl">
+                <p class="chart_content_tip">
+                    <span>占比</span>
+
+                    <span class="pos-rel flex-1">
+                        <i class="icon-mark"></i>
+                    <span class="tips-mark new2">统计重点检查项目中加分的项目占比</span>
+                    </span>
+                    <select class="chooseQuarter" id="chooseQuarter1">
+                        <option value="">所有季度</option>
+                    </select>
+                    <select class="chooseWeek" id="chooseWeek1">
+                        <option value="">所有星期</option>
+                    </select>
+                    <select class="chooseQd" id="chooseQd1">
+                        <option value="">所有部门</option>
+                    </select>
+                </p>
+                <div id="main3" class="status_chart_container h366"></div>
+            </li>
+            <li class="legal_entity_status_chart half_whole_box fr">
+                <p class="chart_content_tip"><span>加分日期占比</span><span class="pos-rel flex-1"><i class="icon-mark"></i>
+                    <span class="tips-mark new2">统计了上周重点检查项目中加分的日期占比</span></span>
+
+                    <select class="chooseQuarter" id="chooseQuarter2">
+                        <option value="">所有季度</option>
+                    </select>
+                    <select class="chooseWeek" id="chooseWeek2">
+                        <option value="">所有星期</option>
+                    </select>
+                </p>
+
+                <div id="main4" class="status_chart_container h366"></div>
+            </li>
+        </ul>
+        <div class="legal_entity_status height-auto mt20">
+            <div class="legal_entity_status_chart whole_box">
+                <div class="chart_content_tip">
+                    <span class="fl mr20">部门加分图表展示</span>
+                    <span class="pos-rel flex-1"><i class="icon-mark"></i>
+                    <span class="tips-mark new2">统计了上周重点检查项目中加分的部门数量。</span></span>
+                    <select class="chooseQuarter" id="chooseQuarter3">
+                        <option value="">所有季度</option>
+                    </select>
+                    <select class="chooseWeek" id="chooseWeek3">
+                        <option value="">所有星期</option>
+                    </select>
+
+                </div>
+                <div class="status_chart_container h410" id="main"></div>
+            </div>
+        </div>
+
+        <div class="legal_entity_status height-auto mt20">
+            <div class="legal_entity_status_chart whole_box">
+                <div class="chart_content_tip">
+                    <span class="fl mr20">每日加分图表展示</span>
+                    <span class="pos-rel flex-1"><i class="icon-mark"></i>
+                    <span class="tips-mark new2">统计了上周每日加分的部门数量。</span></span>
+                    <select class="chooseQuarter" id="chooseQuarter4">
+                        <option value="">所有季度</option>
+                    </select>
+                    <select class="chooseWeek" id="chooseWeek4">
+                        <option value="">所有星期</option>
+                    </select>
+                </div>
+                <div class="status_chart_container h410" id="main2"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper.js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/chart.js/echarts.min.js"></script>
+<script src="/js/admin/week.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的绩效信息</title>
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style type="text/css">
+        .table-responsive1 {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: -ms-autohiding-scrollbar
+        }
+
+        .table-responsive1 > .table-bordered {
+            border: 0
+        }
+        .col-md-6-2 {
+            position: relative;
+            width: 50%;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px
+        }
+
+        .col-md-6-2 {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+            max-width: 50%
+        }
+        .row {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: 15px;
+            margin-left: 15px
+        }
+
+    </style>
+</head>
+<body>
+<input type="hidden" id="userId" name="userId" th:value="${userId}"/>
+<!--<div class="page-wrapper">-->
+<!--    <div class="main-container">-->
+<!--        <div class="content">-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-6">-->
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            我的加分信息
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <input id="addDesc" name="addDesc" class="form-control" placeholder="加分原因">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button class="btn btn-rounded btn-primary" id="search_add">搜索</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="table_add">
+                                    <thead>
+                                    <tr>
+                                        <th>加分原因</th>
+                                        <th>加分分数</th>
+                                        <th>时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                <button type="button" class="btn btn-secondary btn-sm add">首页</button>
+                                <button type="button" class="btn btn-secondary btn-sm add">上一页</button>
+                                <button type="button" class="btn btn-secondary btn-sm add">下一页</button>
+                                <button type="button" class="btn btn-secondary btn-sm add">尾页</button>
+                            </div>
+                        </div>
+                    </div>
+                <!--</div>-->
+
+                <!--<div class="col-md-6">-->
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            我的扣分信息
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input id="deleteDesc" name="deleteDesc" class="form-control" placeholder="扣分原因">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button class="btn btn-rounded btn-primary" id="search_del">搜索</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="table_del">
+                                    <thead>
+                                    <tr>
+                                        <th>扣分原因</th>
+                                        <th>扣分分数</th>
+                                        <th>时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                <button type="button" class="btn btn-secondary btn-sm del">首页</button>
+                                <button type="button" class="btn btn-secondary btn-sm del">上一页</button>
+                                <button type="button" class="btn btn-secondary btn-sm del">下一页</button>
+                                <button type="button" class="btn btn-secondary btn-sm del">尾页</button>
+                            </div>
+                        </div>
+                    </div>
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="row">-->
+                <!--<div class="col-md-6">-->
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            我的奖励信息
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <input id="rewardReason" name="rewardReason" class="form-control" placeholder="奖励原因">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button class="btn btn-rounded btn-primary" id="search_reward">搜索</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="table_jl">
+                                    <thead>
+                                    <tr>
+                                        <th>奖项</th>
+                                        <th>描述</th>
+                                        <th>获奖时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                <button type="button" class="btn btn-secondary btn-sm jl">首页</button>
+                                <button type="button" class="btn btn-secondary btn-sm jl">上一页</button>
+                                <button type="button" class="btn btn-secondary btn-sm jl">下一页</button>
+                                <button type="button" class="btn btn-secondary btn-sm jl">尾页</button>
+                            </div>
+                        </div>
+                    </div>
+                <!--</div>-->
+
+                <!--<div class="col-md-6">-->
+                    <!--<div class="card">
+                        <div class="card-header bg-light">
+                            我的惩罚信息
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <input id="punishReason" name="punishReason" class="form-control" placeholder="惩罚原因">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button class="btn btn-rounded btn-primary" id="search_punish">搜索</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="table_cf">
+                                    <thead>
+                                    <tr>
+                                        <th>惩罚原因</th>
+                                        <th>惩罚项目</th>
+                                        <th>是否完成</th>
+                                        <th>完成时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                <button type="button" class="btn btn-secondary btn-sm cf">首页</button>
+                                <button type="button" class="btn btn-secondary btn-sm cf">上一页</button>
+                                <button type="button" class="btn btn-secondary btn-sm cf">下一页</button>
+                                <button type="button" class="btn btn-secondary btn-sm cf">尾页</button>
+                            </div>
+                        </div>
+                    </div>-->
+                <!--</div>-->
+            <!--</div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper.js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/chart.js/chart.min.js"></script>
+<script src="/js/my_kp.js"></script>
+</body>
+</html>

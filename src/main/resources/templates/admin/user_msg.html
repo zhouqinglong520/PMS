@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的信息</title>
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="main-container">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <input type="hidden" id="userId" name="userId" th:value="${user.userId}"/>
+                                <input type="hidden" id="userName" name="userName" th:value="${user.userName}"/>
+                                <div class="row pb-5 p-5">
+                                    <div class="col-md-6">
+                                        <p class="font-weight-bold mb-4">我的个人信息</p>
+                                        <p class="mb-1">姓名：<span th:text="${user.userName}"></span></p>
+                                        <p id="gender">性别：<span th:text="${user.gender}"></span></p>
+                                        <p class="mb-1" id="phone">手机号码：<span th:text="${user.phone}"></span></p>
+                                        <p class="mb-1" id="email">邮箱：<span th:text="${user.email}"></span></p>
+                                    </div>
+
+                                    <div class="col-md-6 text-right">
+                                        <p class="font-weight-bold mb-4">详情</p>
+                                        <p class="mb-1"><span class="text-muted">工号: <span th:text="${user.userId}"></span></span></p>
+                                        <p class="mb-1" id="pwd"><span class="text-muted">密码:<span th:text="${user.pwd}"></span> </span></p>
+                                        <p class="mb-1" id="kpiSum"><span class="text-muted">考评总分:<span th:text="${user.kpiSum}"></span> </span></p>
+                                        <p class="mb-1" id="departmentId"><span class="text-muted">所属部门:<span th:text="${user.departmentId}"></span> </span></p>
+                                        <p class="mb-1" id="hometown"><span class="text-muted">籍贯:<span th:text="${user.hometown}"></span> </span></p>
+                                    </div>
+                                </div>
+
+                                <!--<div class="row p-5">
+                                    <div class="col-md-12">
+                                        <a id="add_kp"><button type="button" class="btn btn-outline-primary">修改信息</button></a>
+                                        <a id="add_excellentKpi"><button type="button" class="btn btn-outline-primary">优秀加分处理</button></a>
+                                    </div>
+                                </div>-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper.js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/chart.js/chart.min.js"></script>
+<script>
+    var userId=$("#userId").val();
+    $(document).ready(function () {
+        $("#add_kp").attr("href","/hr/addUserKp?userId="+userId);
+        $("#add_excellentKpi").attr("href","/hr/addExcellentKpi?userId="+userId);
+    });
+</script>
+</body>
+</html>

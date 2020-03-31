@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>录入绩效更改</title>
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            录入<span th:text="${userName}"></span>(工号：<span th:text="${userId}"></span>)的本次绩效值更改
+                        </div>
+                        <div class="card-body">
+<!-- ********************************************************************************************************** -->
+                            <hr>
+                            <form id="del_form" action="/hr/upDel" method="post">
+                                <input type="hidden" name="userId" th:value="${userId}"/>
+                                <input type="hidden" name="deleteId" id="deleteId" th:value="${deletePoint.deleteId}"/>
+                                <input type="hidden" name="userName" th:value="${userName}"/>
+                                <div class="mb-4">
+                                    <p>本次扣绩效修改</p>
+                                    <div class="row mt-4">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="deleteDescOld" class="form-control-label">扣绩效原因描述</label>
+                                                <input id="deleteDescOld" class="form-control" th:value="${deletePoint.deleteDesc}" disabled>
+                                                <br/>
+                                                <label class="form-control-label">请输入要修改的扣绩效原因描述</label>
+                                                <input class="form-control" th:placeholder="${deletePoint.deleteDesc}" id="deleteDesc" name="deleteDesc">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="deleteTimeOld" class="form-control-label">加绩效时间</label>
+                                                <input id="deleteTimeOld" class="form-control" th:value="${deletePoint.deleteTime}" disabled>
+                                                <br/>
+                                                <label class="form-control-label">请输入要修改的加绩效时间(格式：yyyy-MM-dd)</label>
+                                                <input class="form-control" th:placeholder="${deletePoint.deleteTime}" id="deleteTime" name="deleteTime">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="deletePointOld" class="form-control-label">扣绩效分数</label>
+                                                <input id="deletePointOld" class="form-control" th:value="${deletePoint.deletePoint}" disabled>
+                                                <br/>
+                                                <label class="form-control-label">请输入绩效数</label>
+                                                <input class="form-control" th:placeholder="${deletePoint.deletePoint}"  name="deletePoint" id="deletePoint">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br/><br/>
+                                    <button id="kp_del" type="button" class="btn btn-outline-primary">确定</button>
+                                    <button type="reset" class="btn btn-outline-danger">重置</button>
+                                    <a id="del_a" href="/hr/del_this">
+                                        <button type="button" id="del_del" class="btn btn-outline-danger">删除此次扣分</button>
+                                    </a>
+                                </div>
+                            </form>
+<!-- ********************************************************************************************************** -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper.js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/chart.js/chart.min.js"></script>
+<script>
+
+    function delSubmit() {
+        var input_cart = $("#del_form");
+        input_cart.submit();
+    }
+
+    $("#kp_del").click(function () {
+        var number2 = $("#deletePoint").val();
+        var bagin = $('#deleteTime').val();
+        var bagin_r = bagin.match(/^(\d{4})(-)(\d{2})(-)(\d{2})$/);
+        if(bagin==null||bagin==""){
+            $("#deleteTime").removeAttr("name");
+            $("#deleteTimeOld").attr("name","deleteTime");
+        }else{
+            $("#deleteTimeOld").removeAttr("name");
+            $("#deleteTime").attr("name","deleteTime");
+        }
+
+        if(number2==null||number2==""){
+            $("#deletePoint").removeAttr("name");
+            $("#deletePointOld").attr("name","deletePoint");
+        }else{
+            $("#deletePointOld").removeAttr("name");
+            $("#deletePoint").attr("name","deletePoint");
+        }
+        if(bagin_r==null&&bagin!=null&&bagin!=""){
+            alert("请输入正确的加绩效时间格式,如:2019-01-01");
+            return false;
+        }
+        if(!checkRate(number2)&&number2!=null&&number2!=""){
+            alert("加绩效分数请输入正整数");
+            return false;
+        }
+        delSubmit();
+        alert("修改加绩效信息成功！");
+    });
+
+    $("#del_del").click(function () {
+        var deleteId=$("#deleteId").val();
+        $("#del_a").attr("href","/hr/del_this?deleteId="+deleteId);
+    });
+
+    function checkRate(nubmer) {
+        var re = /^[1-9]+[0-9]*]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
+        if (!re.test(nubmer)) {
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+</script>
+</body>
+</html>

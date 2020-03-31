@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>导入</title>
+    <meta name="decorator" content="default"/>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/popper.js/popper.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var html;
+        $(document).ready(function() {
+            html=document.getElementById('importSpan').innerHTML;
+            var file = document.getElementById("uploadFile");
+            $("#btnImportSubmit").click(function(){
+                if(file.value.length<=0) {
+                    alert("请上传文件");
+                    return false;
+                }
+            });
+        });
+        function checkFileType(str){
+            var pos = str.lastIndexOf(".");
+            var lastname = str.substring(pos,str.length);
+            var resultName=lastname.toLowerCase();
+            if ('.xls'!=resultName.toString()&&'.xlsx'!=resultName.toString()) {
+                alert('只能上传xls或xlsx文件，您上传的文件类型为'+lastname+'，请重新上传');
+                resetFile();
+            }
+            function resetFile(){
+                document.getElementById('importSpan').innerHTML=html;
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="importBox" class="hide">
+    <span id="importSpan">
+    <form id="importForm" action="/admin/upload2" method="post" enctype="multipart/form-data" name="HtmlFileForm"><br/>
+        <input id="uploadFile" name="file" type="file" onchange='checkFileType(this.value);'/><br/>
+        <input id="btnImportSubmit" type="submit" value="导入"/>
+    </form>
+    </span>
+</div>
+</body>
+</html>
