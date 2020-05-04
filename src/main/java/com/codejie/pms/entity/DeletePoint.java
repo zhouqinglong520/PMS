@@ -1,6 +1,5 @@
 package com.codejie.pms.entity;
 
-
 import java.sql.Date;
 
 public class DeletePoint extends User {
@@ -11,7 +10,7 @@ public class DeletePoint extends User {
   private long deletePoint;
   private String deleteDesc;
   private Date deleteTime;
-  private long checkId;
+
 
 
   public long getDeleteId() {
@@ -67,11 +66,5 @@ public class DeletePoint extends User {
     this.deleteTime = deleteTime;
   }
 
-  public long getCheckId() {
-    return checkId;
-  }
 
-  public void setCheckId(long checkId) {
-    this.checkId = checkId;
-  }
 }

@@ -27,14 +27,12 @@ public interface HrService {
     void delExcellentKpiTj(UserExcellentKpi userExcellentKpi);
 
     List<DeletePoint> allDel(DeletePoint dp, int pageNum, int pageSize);
-
     DeletePoint getDel(DeletePoint deletePoint);
 
     void upDel(DeletePoint deletePoint);
     void delThis(DeletePoint deletePoint);
 
     List<AddPoint> allAdd(AddPoint ap, int pageNum, int pageSize);
-
     AddPoint getAdd(AddPoint addPoint);
 
     void upAdd(AddPoint addPoint);

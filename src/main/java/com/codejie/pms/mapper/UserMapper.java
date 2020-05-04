@@ -85,8 +85,12 @@ public interface UserMapper {
     List<User> selectUserList1();
 
     /**
-     * Description 用户列表
+     * Description 所有kpi列表
      */
     List<Kpi> selectKpiList();
+    /**
+     * Description 员工kpi列表
+     */
+    List<Kpi> selectKpiList1();
 
 }

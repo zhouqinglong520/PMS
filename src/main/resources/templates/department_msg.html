@@ -28,16 +28,15 @@
                             <div class="col-md-6 text-right">
                                 <p class="font-weight-bold mb-4">详情</p>
                                 <p class="mb-1" id="departmentId"><span class="text-muted">部门编码: </span></p>
-                                <p class="mb-1" id="departmentNum"><span class="text-muted">部门人数: </span></p>
-                                <p class="mb-1" id="departmentKpi"><span class="text-muted">考评总分: </span></p>
+                                <p class="mb-1" id="departmentKpi"><span class="text-muted">部门考评总分: </span></p>
                             </div>
                         </div>
 
-                        <div class="row p-5">
+                       <!-- <div class="row p-5">
                             <div class="col-md-12">
                                 <a href="/employee/department_list"><button type="button" class="btn btn-outline-primary">所有部门</button></a>
                             </div>
-                        </div>
+                        </div>-->
 
                     </div>
                 </div>
@@ -63,7 +62,6 @@
                 $("#qdkh").append(data.qdkh);
                 $("#qdms").append(data.qdms);
                 $("#departmentId").append(data.departmentId);
-                $("#departmentNum").append(data.departmentNum);
                 $("#departmentKpi").append(data.departmentKpi);
             },
         });

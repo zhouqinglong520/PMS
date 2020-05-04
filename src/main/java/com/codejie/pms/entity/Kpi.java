@@ -6,6 +6,8 @@ public class Kpi {
     private String kpiDescription;
     private String kpiGrading;
     private Double kpiWeight;
+    private String kpiDepartment;
+    private String kpiProperty;
 
     public String getKpiId() {
         return kpiId;
@@ -45,5 +47,21 @@ public class Kpi {
 
     public void setKpiWeight(Double kpiWeight) {
         this.kpiWeight = kpiWeight;
+    }
+
+    public String getKpiDepartment() {
+        return kpiDepartment;
+    }
+
+    public void setKpiDepartment(String kpiDepartment) {
+        this.kpiDepartment = kpiDepartment;
+    }
+
+    public String getKpiProperty() {
+        return kpiProperty;
+    }
+
+    public void setKpiProperty(String kpiProperty) {
+        this.kpiProperty = kpiProperty;
     }
 }

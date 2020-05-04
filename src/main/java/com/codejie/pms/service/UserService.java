@@ -78,11 +78,18 @@ public interface UserService {
     List<User> selectUserList();
 
     /**
-     * Description kpi列表
+     * Description 所有kpi列表
 
      */
     List<Kpi> selectKpiList(Kpi kpi, int pageNum, int pageSize);
     List<Kpi> selectKpiList();
+    /**
+     * Description 员工kpi列表
+
+     */
+    List<Kpi> selectKpiList1(Kpi kpi, int pageNum, int pageSize);
+    List<Kpi> selectKpiList1();
+
 
 
     /**

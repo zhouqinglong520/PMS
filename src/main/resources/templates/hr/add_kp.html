@@ -78,7 +78,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-4">
+                                <!--    <div class="row mt-4">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="form-control-label">选择扣绩效项目</label>
@@ -89,7 +89,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <button id="kp_del" type="button" class="btn btn-outline-primary">确定</button>
                                     <button type="reset" class="btn btn-outline-danger">重置</button>
                                 </div>
@@ -296,7 +296,7 @@
         var bagin = $('#addTime').val();
         var bagin_r = bagin.match(/^(\d{4})(-)(\d{2})(-)(\d{2})$/);
         if(bagin_r==null){
-            alert("请输入正确的加绩效时间格式,如:2019-01-01");
+            alert("请输入正确的时间格式,如:2019-01-01");
             return false;
         }
         var number1 = $("#addPoint").val();
@@ -311,17 +311,17 @@
 
     $("#kp_del").click(function () {
         if(!checkForm2()){
-            alert("加绩效信息不能为空!");return false;
+            alert("扣绩效信息不能为空!");return false;
         }
         var number2 = $("#deletePoint").val();
         var bagin = $('#deleteTime').val();
         var bagin_r = bagin.match(/^(\d{4})(-)(\d{2})(-)(\d{2})$/);
         if(bagin_r==null){
-            alert("请输入正确的加绩效时间格式,如:2019-01-01");
+            alert("请输入正确的扣绩效时间格式,如:2019-01-01");
             return false;
         }
         if(!checkRate(number2)){
-            alert("加绩效分数请输入正整数");
+            alert("扣绩效分数请输入正整数");
             return false;
         }
         delSubmit();

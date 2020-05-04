@@ -25,8 +25,8 @@
     </insert>
 
     <insert id="kpDel" parameterType="com.codejie.pms.entity.DeletePoint">
-        insert into delete_point(userId,userName,deletePoint,deleteDesc,deleteTime,checkId)
-        values (#{userId},#{userName},#{deletePoint},#{deleteDesc},#{deleteTime},#{checkId})
+        insert into delete_point(userId,userName,deletePoint,deleteDesc,deleteTime)
+        values (#{userId},#{userName},#{deletePoint},#{deleteDesc},#{deleteTime})
     </insert>
 
     <insert id="kpReward" parameterType="com.codejie.pms.entity.Reward">
@@ -40,11 +40,15 @@
     </insert>
 
     <update id="addPoint" parameterType="com.codejie.pms.entity.AddPoint">
-        update user set kpiSum=kpiSum+#{addPoint} where userId=#{userId}
+        update user
+            set kpiSum=kpiSum+#{addPoint}
+            where userId=#{userId}
     </update>
 
     <update id="delPoint" parameterType="com.codejie.pms.entity.DeletePoint">
-        update user set kpiSum=kpiSum-#{deletePoint} where userId=#{userId}
+        update user
+            set kpiSum=kpiSum-#{deletePoint}
+            where userId=#{userId}
     </update>
 
     <select id="userExcellentKpi" resultType="com.codejie.pms.entity.UserExcellentKpi">
@@ -70,8 +74,9 @@
     </delete>
 
     <select id="allDel" resultType="com.codejie.pms.entity.DeletePoint" parameterType="com.codejie.pms.entity.DeletePoint">
-        select d.*,u.* from delete_point d,user u where
-        u.userId=d.userId
+        select d.*,u.*
+        from delete_point d,user u
+        where u.userId=d.userId
          <if test="userId!=null and userId != ''">
              and u.userId = #{userId}
          </if>
@@ -81,8 +86,24 @@
          and date_sub(CURDATE(),INTERVAL 16 DAY) &lt; DATE(deleteTime) order by deleteTime desc
     </select>
 
+    <select id="allAdd" resultType="com.codejie.pms.entity.AddPoint" parameterType="com.codejie.pms.entity.AddPoint">
+        select a.*,u.*
+        from add_point a,user u
+        where u.userId=a.userId
+        <if test="userId!=null and userId != ''">
+            and u.userId = #{userId}
+        </if>
+        <if test="addDesc!=null and addDesc != ''">
+            and a.addDesc LIKE CONCAT('%',#{addDesc},'%')
+        </if>
+        and date_sub(CURDATE(),INTERVAL 16 DAY) &lt; DATE(addTime) order by addTime desc
+    </select>
+
     <select id="getDel" resultType="com.codejie.pms.entity.DeletePoint" parameterType="com.codejie.pms.entity.DeletePoint">
         select * from delete_point where deleteId=#{deleteId}
+    </select>
+    <select id="getAdd" resultType="com.codejie.pms.entity.AddPoint" parameterType="com.codejie.pms.entity.AddPoint">
+        select * from add_point where addId=#{addId}
     </select>
 
     <update id="upDel" parameterType="com.codejie.pms.entity.DeletePoint">
@@ -99,35 +120,6 @@
         </if>
          where deleteId=#{deleteId}
     </update>
-
-    <delete id="delThis" parameterType="com.codejie.pms.entity.DeletePoint">
-        delete from delete_point where deleteId=#{deleteId}
-    </delete>
-
-    <select id="allCheck" resultType="com.codejie.pms.entity.WeakCheck">
-        select * from weak_check order by checkId
-    </select>
-
-
-
-
-
-    <select id="allAdd" resultType="com.codejie.pms.entity.AddPoint" parameterType="com.codejie.pms.entity.AddPoint">
-        select a.*,u.* from add_point a,user u where
-        u.userId=a.userId
-        <if test="userId!=null and userId != ''">
-            and u.userId = #{userId}
-        </if>
-        <if test="addDesc!=null and addDesc != ''">
-            and a.addDesc LIKE CONCAT('%',#{addDesc},'%')
-        </if>
-        and date_sub(CURDATE(),INTERVAL 16 DAY) &lt; DATE(addTime) order by addTime desc
-    </select>
-
-    <select id="getAdd" resultType="com.codejie.pms.entity.AddPoint" parameterType="com.codejie.pms.entity.AddPoint">
-        select * from add_point where addId=#{addId}
-    </select>
-
     <update id="upAdd" parameterType="com.codejie.pms.entity.AddPoint">
         update add_point set
         userId=#{userId}
@@ -142,6 +134,23 @@
         </if>
         where addId=#{addId}
     </update>
+
+    <delete id="delThis" parameterType="com.codejie.pms.entity.DeletePoint">
+        delete from delete_point where deleteId=#{deleteId}
+    </delete>
+
+    <select id="allCheck" resultType="com.codejie.pms.entity.WeakCheck">
+        select * from weak_check order by checkId
+    </select>
+
+
+
+
+
+
+
+
+
 
     <delete id="delThis2" parameterType="com.codejie.pms.entity.AddPoint">
         delete from add_point where addId=#{addId}

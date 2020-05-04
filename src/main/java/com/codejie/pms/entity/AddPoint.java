@@ -3,7 +3,7 @@ package com.codejie.pms.entity;
 
 import java.sql.Date;
 
-public class AddPoint {
+public class AddPoint extends User{
 
   private long addId;
   private String userId;

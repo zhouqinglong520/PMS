@@ -42,12 +42,12 @@ function addPoint() {
             var list_ = data.list;
             for (var i = 1; i < list_.length + 1; i++) {
                 var content = list_[i - 1];
-                var gb = content.permissionDegree;
+               /* var gb = content.permissionDegree;
                 if(gb==3){
                     gb="是";
                 }else{
                     gb="否";
-                }
+                }*/
                 var trHTML = "<tr>"
                     + "<td>" + content.userId + "</td>"
                     + "<td>" + content.userName + "</td>"
@@ -55,7 +55,7 @@ function addPoint() {
                     + "<td>" + content.departmentId + "</td>"
                     + "<td>" + content.phone + "</td>"
                     + "<td>" + content.kpiSum + "</td>"
-                    + "<td>" + gb + "</td>"
+                    //+ "<td>" + gb + "</td>"
                     + "<td><a class='user-msg' href='/admin/getUser?userId="+content.userId+"'>详情</a></td>"
                     + "</tr>";
                 $("#table_add tbody").append(trHTML);//在table最后面添加一行

@@ -14,7 +14,7 @@ public class DepartmentDelDto {
 
     private Integer countDepartment;
 
-    private Date departmentAddPointTime;
+    private Date addTime;
 
     public long getCheckId() {
         return checkId;
@@ -32,12 +32,12 @@ public class DepartmentDelDto {
         this.countDepartment = countDepartment;
     }
 
-    public Date getDepartmentAddPointTime() {
-        return departmentAddPointTime;
+    public Date getAddTime() {
+        return addTime;
     }
 
-    public void setDepartmentAddPointTime(Date departmentAddPointTime) {
-        this.departmentAddPointTime = departmentAddPointTime;
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 
     public String getDepartmentId() {

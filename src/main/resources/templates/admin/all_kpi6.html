@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>运营部绩效指标信息1</title>
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style type="text/css">
+        .table-responsive1 {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: -ms-autohiding-scrollbar
+        }
+
+        .table-responsive1 > .table-bordered {
+            border: 0
+        }
+        .col-md-6-2 {
+            position: relative;
+            width: 50%;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px
+        }
+
+        .col-md-6-2 {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+            max-width: 50%
+        }
+        .row {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: 15px;
+            margin-left: 15px
+        }
+    </style>
+</head>
+<body>
+
+
+<input type="hidden" th:value="${isSuccess}" id="isSuccess"/>
+<div class="card">
+    <div class="card-header bg-light ">
+        运营部绩效指标信息1
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="table_add">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>描述</th>
+                    <th>评绩效标准</th>
+                    <th>权值</th>
+                    <th>实际得分</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+            <form id="add_form" action="/admin/all_kpi6" method="post">
+                <input type="hidden" id="departmentId" name="departmentId" th:value="${department.departmentId}"/>
+                <input type="hidden" id="departmentName" name="departmentName" th:value="${department.departmentName}"/>
+                <input type="hidden" id="addDesc" name="addDesc" th:value="考核加分"/>
+                输入时间：<input type="" id="addTime" name="addTime" placeholder="如2020-02-02" th:value="2020-04-06"/>
+                输入季度：<input type="" id="quarter" name="quarter" placeholder="如2020第2季度" th:value="2020第2季度"/>
+                <br>
+                第 <input type="" id="checkId" name="checkId" th:value="1" style="width:5%"/>次评估
+
+                <br>
+                本次评估得分：<input value="" id="addPoint" name="addPoint" readonly="true">
+                <br>
+                <button id="kp_add" type="submit" class="btn btn-success btn-sm add" style="float:right">
+                    提交
+                </button>
+
+            </form>
+
+            <button id="kp_sum"  class="btn btn-success btn-sm add"
+                    size="" style="float:right">
+                计算总分值
+            </button>
+
+        </div>
+    </div>
+</div>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper.js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/chart.js/chart.min.js"></script>
+
+<script src="/js/admin/all_kpi6.js"></script>
+
+<script>
+    window.onload = function(){
+        var btn = document.getElementById("kp_sum");
+        btn.addEventListener('click',function(){
+
+            var  valueArr = document.getElementsByName("point") ;
+            var sumValue=0;
+            for (var i=0;i<valueArr.length;i++ )
+            {
+                if (valueArr[i].value>0){
+                    sumValue +=parseInt(valueArr[i].value);
+                }
+            }
+            console.log(sumValue)
+            document.getElementById("addPoint").value = sumValue;
+            console.log('提交成功！')
+
+        },false);
+    }
+
+</script>
+</body>
+</html>

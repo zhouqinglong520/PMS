@@ -1,4 +1,4 @@
-var add_pageNum = 1, pageSize = 10, add_pages = 0;
+var add_pageNum = 1, pageSize = 1000, add_pages = 0;
 
 $(document).ready(function () {
     init();
@@ -40,7 +40,9 @@ function addPoint() {
                     + "<td>" + content.departmentId + "</td>"
                     + "<td>" + content.departmentName + "</td>"
                     + "<td>" + content.departmentKpi + "</td>"
-                    + "<td>" + content.departmentNum + "</td></tr>";
+                    + "<td><a class='user-msg' href='/admin/all_kpi"+((content.qdId-1)*2+4)+"?departmentId="+content.departmentId+"'>进入考核<a/></td>"
+                    + "<td><a class='user-msg' href='/admin/all_kpi"+((content.qdId-1)*2+5)+"?departmentId="+content.departmentId+"'>进入考核<a/></td>"
+                    + "</tr>";
                 $("#table_add tbody").append(trHTML);//在table最后面添加一行
             }
         },

@@ -25,7 +25,7 @@ function init() {
  */
 function addPoint() {
     $.ajax({
-        url: "/employee/getaddPoint",     //后台请求的数据
+        url: "/employee/getAddPoint",     //后台请求的数据
         data: {
             "pageSize": pageSize,
             "pageNum": add_pageNum,

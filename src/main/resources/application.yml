@@ -1,5 +1,7 @@
 #开发配置
 spring:
+  thymeleaf:
+    cache:  false
   #数据源配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

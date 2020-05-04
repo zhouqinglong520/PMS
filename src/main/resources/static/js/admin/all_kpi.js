@@ -50,6 +50,7 @@ function addPoint() {
                     + "<td>" + content.kpiDescription+ "</td>"
                     + "<td>" + content.kpiGrading+ "</td>"
                     + "<td>" + content.kpiWeight + "</td>"
+                    + "<td>" + content.kpiDepartment + "</td>"
                     + "</tr>";
                 $("#table_add tbody").append(trHTML);//在table最后面添加一行
             }

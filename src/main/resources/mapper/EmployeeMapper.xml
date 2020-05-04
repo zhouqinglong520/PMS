@@ -5,7 +5,8 @@
 <mapper namespace="com.codejie.pms.mapper.EmployeeMapper">
 
     <select id="getAddPoint" parameterType="com.codejie.pms.entity.AddPoint" resultType="com.codejie.pms.entity.AddPoint">
-        select addId,addDesc,addPoint,userId,userName,addTime  from add_point
+        select addId,userId,userName,addDesc,addPoint,addTime
+        from add_point
         where userId=#{userId}
         <if test="addDesc !=null and addDesc !=''">
             and addDesc like concat('%',#{addDesc},'%')

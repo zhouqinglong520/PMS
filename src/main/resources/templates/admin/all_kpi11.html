@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>绩效指标信息</title>
+    <title>市场部绩效指标信息2</title>
     <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
@@ -50,11 +50,10 @@
 <body>
 
 
-
 <input type="hidden" th:value="${isSuccess}" id="isSuccess"/>
 <div class="card">
     <div class="card-header bg-light ">
-        所有评估指标
+        市场部绩效指标信息2
     </div>
 
     <div class="card-body">
@@ -62,26 +61,43 @@
             <table class="table table-bordered" id="table_add">
                 <thead>
                 <tr>
-                    <th>指标ID</th>
-                    <th>指标名称</th>
-                    <th>指标描述</th>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>描述</th>
                     <th>评绩效标准</th>
-                    <th>指标权值</th>
+                    <th>权值</th>
                     <th>实际得分</th>
+
                 </tr>
                 </thead>
                 <tbody>
 
                 </tbody>
             </table>
-            <button id="button" type="submit" class="btn btn-success btn-sm add"
+
+            <form id="add_form" action="/admin/all_kpi11" method="post">
+                <input type="hidden" id="departmentId" name="departmentId" th:value="${department.departmentId}"/>
+                <input type="hidden" id="departmentName" name="departmentName" th:value="${department.departmentName}"/>
+                <input type="hidden" id="addDesc" name="addDesc" th:value="考核加分"/>
+                输入时间：<input type="" id="addTime" name="addTime" placeholder="如2020-02-02" th:value="2020-04-06"/>
+                输入季度：<input type="" id="quarter" name="quarter" placeholder="如2020第2季度" th:value="2020第2季度"/>
+                <br>
+                第 <input type="" id="checkId" name="checkId" th:value="1" style="width:5%"/>次评估
+
+                <br>
+                本次评估得分：<input value="" id="addPoint" name="addPoint" readonly="true">
+                <br>
+                <button id="kp_add" type="submit" class="btn btn-success btn-sm add" style="float:right">
+                    提交
+                </button>
+
+            </form>
+
+            <button id="kp_sum"  class="btn btn-success btn-sm add"
                     size="" style="float:right">
-                提交评估
+                计算总分值
             </button>
-           <!-- <button type="button" class="btn btn-secondary btn-sm add">首页</button>
-            <button type="button" class="btn btn-secondary btn-sm add">上一页</button>
-            <button type="button" class="btn btn-secondary btn-sm add">下一页</button>
-            <button type="button" class="btn btn-secondary btn-sm add">尾页</button>-->
+
         </div>
     </div>
 </div>
@@ -89,25 +105,28 @@
 <script src="/vendor/popper.js/popper.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="/vendor/chart.js/chart.min.js"></script>
-<script src="/js/admin/all_kpi2.js"></script>
+
+<script src="/js/admin/all_kpi11.js"></script>
 
 <script>
     window.onload = function(){
-        var btn = document.getElementById("button");
+        var btn = document.getElementById("kp_sum");
         btn.addEventListener('click',function(){
 
-            alert('提交成功！')
             var  valueArr = document.getElementsByName("point") ;
             var sumValue=0;
             for (var i=0;i<valueArr.length;i++ )
             {
-                sumValue +=parseInt(valueArr[i].value);
+                if (valueArr[i].value>0){
+                    sumValue +=parseInt(valueArr[i].value);
+                }
             }
-            alert(sumValue)
+            console.log(sumValue)
+            document.getElementById("addPoint").value = sumValue;
+            console.log('提交成功！')
+
         },false);
-
     }
-
 
 </script>
 </body>

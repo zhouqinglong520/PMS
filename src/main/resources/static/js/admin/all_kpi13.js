@@ -29,7 +29,7 @@ function upload() {
 
 function addPoint() {
     $.ajax({
-        url: "/admin/getKpiList",     //后台请求的数据
+        url: "/admin/getKpiList13",     //后台请求的数据
         data: {
             "pageSize": pageSize,
             "pageNum": add_pageNum,
@@ -50,15 +50,13 @@ function addPoint() {
                     + "<td>" + content.kpiDescription+ "</td>"
                     + "<td>" + content.kpiGrading+ "</td>"
                     + "<td>" + content.kpiWeight + "</td>"
-                    +"<td><input value='' name='point'  placeholder='输入该项得分'/></td>"
+                    +"<td><input id='point' name='point'  placeholder='输入该项得分' ></td>"
+
                     + "</tr>";
                 $("#table_add tbody").append(trHTML);//在table最后面添加一行
             }
-
         },
     });
-
-
 }
 
 
@@ -67,7 +65,7 @@ function addPoint() {
 /**
  * 翻页
  */
-/*$(".add").click(function () {
+$(".add").click(function () {
     var data = $(this).html();
     switch (data) {
         case "首页":
@@ -99,7 +97,7 @@ function addPoint() {
             addPoint();
             break;
     }
-});*/
+});
 
 $("#search_reward").click(function () {
     addPoint();

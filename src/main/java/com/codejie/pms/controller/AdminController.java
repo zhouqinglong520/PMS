@@ -1,15 +1,12 @@
 package com.codejie.pms.controller;
 
-import com.codejie.pms.entity.Kpi;
-import com.codejie.pms.entity.User;
-import com.codejie.pms.entity.UserExcellentKpi;
+import com.codejie.pms.entity.*;
 import com.codejie.pms.entity.dto.NameValueDto;
 import com.codejie.pms.service.AdminService;
 import com.codejie.pms.service.HrService;
 import com.codejie.pms.service.UserService;
 import com.codejie.pms.util.ImportExcelUtil;
 import com.github.pagehelper.PageInfo;
-import com.codejie.pms.entity.WeakCheck;
 import com.codejie.pms.util.DateUtil;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.streaming.SXSSFRow;
@@ -21,7 +18,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -32,9 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Description user
- */
+
 @RestController
 @EnableAutoConfiguration
 @RequestMapping(value = "/admin")
@@ -42,10 +36,8 @@ public class AdminController {
 
     @Resource
     private HrService hrService;
-
     @Resource
     private AdminService adminService;
-
     @Resource
     private UserService userService;
 
@@ -71,12 +63,29 @@ public class AdminController {
     /**
      * Description 打开所有绩效指标页面2
      */
-    @RequestMapping("/all_kpi2")
-    public ModelAndView allKpi2() {
-        ModelAndView mv = new ModelAndView("/admin/all_kpi2");
+    @RequestMapping("/add_kp2")
+    public ModelAndView allKpi2(AddPoint addPoint2) {
+        try{
+            adminService.kpAdd2(addPoint2);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+        ModelAndView mv = new ModelAndView("/admin/add_kp2");
+
+        User user = new User();
+        user.setUserId(addPoint2.getUserId());
+        User user1 = userService.selectUser(user);
+        mv.addObject("user",user1);
+
         mv.addObject("isSuccess","3");
         return mv;
+
+
     }
+
+
+
     /**
      * Description 打开所有绩效指标页面3
      */
@@ -107,12 +116,340 @@ public class AdminController {
     @RequestMapping("/getKpiList")
     @ResponseBody
     public PageInfo<Kpi> getKpiList(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
-                                         @RequestParam(defaultValue = "10") int pageSize) {
+                                    @RequestParam(defaultValue = "10") int pageSize) {
         Kpi kpi = new Kpi();
         kpi.setKpiId(kpiId);
         List<Kpi> list = userService.selectKpiList(kpi, pageNum, pageSize);
         return new PageInfo<>(list);
     }
+
+
+
+
+    /**
+     * Description 所有员工绩效指标信息
+     */
+    @RequestMapping("/getKpiList1")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList1(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                    @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = userService.selectKpiList1(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+
+
+
+
+
+
+
+    /**
+     * Description 开发部绩效指标页面1
+     */
+    @RequestMapping("/all_kpi4")
+    public ModelAndView allKpi4(AddPointDepartment addPointDepartment) {
+
+        try{
+            adminService.kpAdd4(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+        ModelAndView mv = new ModelAndView("/admin/all_kpi4");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+    /**
+     * Description 开发部绩效指标页面2
+     */
+    @RequestMapping("/all_kpi5")
+    public ModelAndView allKpi5(AddPointDepartment addPointDepartment) {
+        try{
+            adminService.kpAdd5(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        ModelAndView mv = new ModelAndView("/admin/all_kpi5");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+    /**
+     * Description 运营部绩效指标页面1
+     */
+    @RequestMapping("/all_kpi6")
+    public ModelAndView allKpi6(AddPointDepartment addPointDepartment) {
+        try{
+            adminService.kpAdd6(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        ModelAndView mv = new ModelAndView("/admin/all_kpi6");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+    /**
+     * Description 运营部绩效指标页面2
+     */
+    @RequestMapping("/all_kpi7")
+    public ModelAndView allKpi7(AddPointDepartment addPointDepartment) {
+        try{
+            adminService.kpAdd7(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        ModelAndView mv = new ModelAndView("/admin/all_kpi7");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+    /**
+     * Description 人事部绩效指标页面1
+     */
+    @RequestMapping("/all_kpi8")
+    public ModelAndView allKpi8(AddPointDepartment addPointDepartment) {
+        try{
+            adminService.kpAdd8(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        ModelAndView mv = new ModelAndView("/admin/all_kpi8");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+    /**
+     * Description 人事部绩效指标页面2
+     */
+    @RequestMapping("/all_kpi9")
+    public ModelAndView allKpi9(AddPointDepartment addPointDepartment) {
+        try{
+            adminService.kpAdd9(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        ModelAndView mv = new ModelAndView("/admin/all_kpi9");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+    /**
+     * Description 市场部绩效指标页面1
+     */
+    @RequestMapping("/all_kpi10")
+    public ModelAndView allKpi10(AddPointDepartment addPointDepartment) {
+        try{
+            adminService.kpAdd10(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        ModelAndView mv = new ModelAndView("/admin/all_kpi10");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+    /**
+     * Description 市场部绩效指标页面2
+     */
+    @RequestMapping("/all_kpi11")
+    public ModelAndView allKpi11(AddPointDepartment addPointDepartment) {
+        try{
+            adminService.kpAdd11(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        ModelAndView mv = new ModelAndView("/admin/all_kpi11");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+    /**
+     * Description 财务部绩效指标页面1
+     */
+    @RequestMapping("/all_kpi12")
+    public ModelAndView allKpi12(AddPointDepartment addPointDepartment) {
+        try{
+            adminService.kpAdd12(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        ModelAndView mv = new ModelAndView("/admin/all_kpi12");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+    /**
+     * Description 财务部绩效指标页面2
+     */
+    @RequestMapping("/all_kpi13")
+    public ModelAndView allKpi13(AddPointDepartment addPointDepartment) {
+        try{
+            adminService.kpAdd13(addPointDepartment);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        ModelAndView mv = new ModelAndView("/admin/all_kpi13");
+        Department department = new Department();
+        department.setDepartmentId(addPointDepartment.getDepartmentId());
+        Department department1  = adminService.selectDepartment(department);
+        mv.addObject("department",department1);
+        mv.addObject("isSuccess","3");
+        return mv;
+    }
+
+    /**
+     * Description 所有开发部绩效指标信息1
+     */
+    @RequestMapping("/getKpiList4")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList4(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                     @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList4(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+    /**
+     * Description 所有开发部绩效指标信息2
+     */
+    @RequestMapping("/getKpiList5")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList5(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                     @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList5(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+    /**
+     * Description 所有运营部绩效指标信息1
+     */
+    @RequestMapping("/getKpiList6")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList6(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                     @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList6(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+    /**
+     * Description 所有运营部绩效指标信息2
+     */
+    @RequestMapping("/getKpiList7")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList7(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                     @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList7(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+    /**
+     * Description 所有人事部部绩效指标信息1
+     */
+    @RequestMapping("/getKpiList8")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList8(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                     @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList8(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+    /**
+     * Description 所有人事部部绩效指标信息2
+     */
+    @RequestMapping("/getKpiList9")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList9(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                     @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList9(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+    /**
+     * Description 所有市场部部绩效指标信息1
+     */
+    @RequestMapping("/getKpiList10")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList10(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                     @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList10(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+    /**
+     * Description 所有市场部部绩效指标信息2
+     */
+    @RequestMapping("/getKpiList11")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList11(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                      @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList11(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+    /**
+     * Description 所有财务部部绩效指标信息1
+     */
+    @RequestMapping("/getKpiList12")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList12(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                      @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList12(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+    /**
+     * Description 所有财务部部绩效指标信息2
+     */
+    @RequestMapping("/getKpiList13")
+    @ResponseBody
+    public PageInfo<Kpi> getKpiList13(String kpiId, @RequestParam(defaultValue = "1") int pageNum,
+                                      @RequestParam(defaultValue = "10") int pageSize) {
+        Kpi kpi = new Kpi();
+        kpi.setKpiId(kpiId);
+        List<Kpi> list = adminService.selectKpiList13(kpi, pageNum, pageSize);
+        return new PageInfo<>(list);
+    }
+
 
 
     /**
@@ -169,7 +506,6 @@ public class AdminController {
     public List<NameValueDto> getWeekData3(String quarter, String weekNum, String departmentId) {
         return adminService.getWeekData3(quarter, weekNum, departmentId);
     }
-
     /**
      * Description 加分占比
      */
@@ -316,8 +652,8 @@ public class AdminController {
                     kpi.setKpiDescription(util.getFormat(String.valueOf(list.get(2))));
                     kpi.setKpiGrading(util.getFormat(util.getFormat(String.valueOf(list.get(3)))));
                     kpi.setKpiWeight(Double.parseDouble(util.getFormat(String.valueOf(list.get(4)))));
-                   // users.setKpiSum(Double.parseDouble(util.getFormat(String.valueOf(list.get(5)))));
-
+                    kpi.setKpiDepartment(util.getFormat(String.valueOf(list.get(5))));
+                    kpi.setKpiProperty(util.getFormat(String.valueOf(list.get(6))));
                     userService.saveKpi(kpi);
                 }
             }
@@ -344,7 +680,7 @@ public class AdminController {
                 CellStyle style = workbook.createCellStyle();
                 style.setAlignment(XSSFCellStyle.ALIGN_CENTER);//SXSSFWorkbook方式的居中
                 // 创建一个sheet页
-                SXSSFSheet sheet = (SXSSFSheet) workbook.createSheet("销售订单");
+                SXSSFSheet sheet = (SXSSFSheet) workbook.createSheet("表格");
                 // 分别设置Excel列的宽度
 
                 for(int i=0;i<10;i++){
@@ -448,5 +784,7 @@ public class AdminController {
         adminService.upDepartment();
         return mv;
     }
+
+
 
 }

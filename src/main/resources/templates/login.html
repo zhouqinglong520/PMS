@@ -1,64 +1,32 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>登录</title>
-    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
-    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
 </head>
 <body>
-<div class="page-wrapper flex-row align-items-center">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <form id="login_form" action="/user/login" method="post" >
-                <div class="card p-4">
-                    <div class="card-header text-center text-uppercase h4 font-weight-light">
-                        登录
-                    </div>
-
-                    <div class="card-body py-5">
-                        <div class="form-group">
-                            <label class="form-control-label">工号</label>
-                            <input name="userId" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-control-label">密码</label>
-                            <input type="password" name="pwd" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="card-footer" >
-                        <div class="row" >
-                            <div class="col-6" id="login" >
-                                <button type="submit" class="btn btn-primary px-5" >登录</button>
-                            </div>
-                        </div>
-                    </div>
-
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <form class="form-horizontal" id="login_form" action="/user/login" method="post">
+                <span class="heading">绩效管理系统</span>
+                <div class="form-group">
+                    <input  class="form-control" name="userId" placeholder="工号">
+                    <i class="fa fa-user"></i>
                 </div>
-                </form>
-            </div>
+                <div class="form-group help">
+                    <input type="password" class="form-control" name="pwd" placeholder="密　码">
+                    <i class="fa fa-lock"></i>
+                    <a href="#" class="fa fa-question-circle"></a>
+                </div>
+                <div class="form-group" id="login">
+                    <button type="submit" class="btn btn-default" style="text-align:center">登录</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/popper.js/popper.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="/vendor/chart.js/chart.min.js"></script>
-<script type="text/javascript">
-
-</script>
-<script>
-    $(function(){if (window != top)top.location.href = location.href;})
-    $("#login").click(function () {
-        $("#login_form").submit();
-    })
-</script>
 </body>
 </html>

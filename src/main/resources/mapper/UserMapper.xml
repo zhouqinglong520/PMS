@@ -146,11 +146,19 @@
         where 1=1
         order by kpiId asc
     </select>
+    <select id="selectKpiList1" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 1
+        order by kpiId asc
+    </select>
 
     <insert id="saveKpi" parameterType="com.codejie.pms.entity.Kpi">
         insert into
-        kpi(kpiId,kpiName, kpiDescription, kpiGrading, kpiWeight)
-        values(#{kpiId},#{kpiName},#{kpiDescription},#{kpiGrading},#{kpiWeight})
+        kpi(kpiId,kpiName, kpiDescription, kpiGrading, kpiWeight, kpiDepartment, kpiProperty)
+        values(#{kpiId},#{kpiName},#{kpiDescription},#{kpiGrading},#{kpiWeight},#{kpiDepartment},#{kpiProperty})
     </insert>
 
 

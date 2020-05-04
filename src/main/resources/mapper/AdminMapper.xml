@@ -5,11 +5,11 @@
 <mapper namespace="com.codejie.pms.mapper.AdminMapper">
 
     <select id="initSelect1" resultType="java.lang.String">
-      select quarter from departmentKpi where quarter is not null group by quarter order by quarter desc
+      select quarter from add_point_department where quarter is not null group by quarter order by quarter desc
     </select>
 
     <select id="initSelect2" resultType="java.lang.String">
-      select weekNum from departmentKpi where weekNum is not null group by weekNum order by weekNum desc
+      select weekNum from add_point_department where 1=1 group by weekNum order by weekNum desc
     </select>
 
     <select id="allDepartment" resultType="com.codejie.pms.entity.Department">
@@ -18,31 +18,30 @@
 
     <select id="getWeek2" resultType="com.codejie.pms.entity.WeakCheck">
         select * from weak_check
-        where isNow=2
     </select>
 
     <select id="weekList" resultType="java.lang.String">
-        select DATE_FORMAT(departmentAddPointTime,'%Y-%m-%d') as departmentAddPointTime from departmentKpi
+        select DATE_FORMAT(addTime,'%Y-%m-%d') as addTime from add_point_department
         where 1=1
         <if test="param1!=null and param1!=''">
             and quarter = #{param1}
         </if>
-        <if test="param2!=null and param2!=''">
+        <!--<if test="param2!=null and param2!=''">
             and weekNum = #{param2}
-        </if>
-        GROUP BY DATE_FORMAT(departmentAddPointTime,'%Y-%m-%d')
-        order by DATE_FORMAT(departmentAddPointTime,'%Y-%m-%d')
+        </if>-->
+        GROUP BY DATE_FORMAT(addTime,'%Y-%m-%d')
+        order by DATE_FORMAT(addTime,'%Y-%m-%d')
     </select>
 
     <select id="getWeekData" resultType="com.codejie.pms.entity.dto.DepartmentDelDto">
-        select checkId,sum(departmentAddPoint) as countDepartment from departmentKpi
+        select checkId,sum(addPoint) as countDepartment from add_point_department
         where 1=1
         <if test="param1!=null and param1!=''">
             and quarter = #{param1}
         </if>
-        <if test="param2!=null and param2!=''">
+       <!-- <if test="param2!=null and param2!=''">
             and weekNum = #{param2}
-        </if>
+        </if>-->
         <if test="param3!=null and param3!=''">
             and departmentId=#{param3}
         </if>
@@ -50,15 +49,15 @@
     </select>
 
     <select id="getWeekData2" resultType="com.codejie.pms.entity.dto.DepartmentDelDto">
-        select DATE_FORMAT(departmentAddPointTime,'%Y-%m-%d') as departmentAddPointTime,sum(departmentAddPoint) as countDepartment from departmentKpi
+        select DATE_FORMAT(addTime,'%Y-%m-%d') as addTime,sum(addPoint) as countDepartment from add_point_department
         where 1=1
         <if test="param1!=null and param1!=''">
             and quarter = #{param1}
         </if>
-        <if test="param2!=null and param2!=''">
+       <!-- <if test="param2!=null and param2!=''">
             and weekNum = #{param2}
-        </if>
-        GROUP BY DATE_FORMAT(departmentAddPointTime,'%Y-%m-%d')
+        </if>-->
+        GROUP BY DATE_FORMAT(addTime,'%Y-%m-%d')
     </select>
 
     <select id="stuCount" resultType="java.lang.String">
@@ -66,23 +65,23 @@
     </select>
 
     <select id="getDepartmentCheckDel" resultType="com.codejie.pms.entity.dto.DepartmentDelDto">
-        select t.departmentId,sum(t.departmentAddPoint) as countDepartment
-        from departmentKpi t
+        select t.departmentId,sum(t.addPoint) as countDepartment
+        from add_point_department t
         where 1=1
         <if test="param1!=null and param1!=''">
             and t.quarter = #{param1}
         </if>
-        <if test="param2!=null and param2!=''">
+       <!-- <if test="param2!=null and param2!=''">
             and t.weekNum = #{param2}
-        </if>
+        </if>-->
         GROUP BY t.departmentId
     </select>
 
     <update id="upDepartment" parameterType="com.codejie.pms.entity.Department">
-        update department set
-        departmentKpi=(
-            select sum(kpiSum)
-            from user
+        update department
+        set departmentKpi=(
+            select sum(addPoint)
+            from add_point_department
             where departmentId =#{departmentId})
         where departmentId=#{departmentId}
 
@@ -93,6 +92,203 @@
 
 
 
+    </update>
+
+
+
+
+
+    <insert id="kpAdd2" parameterType="com.codejie.pms.entity.AddPoint">
+        insert into add_point(userId,userName,addPoint,addDesc,addTime)
+        values (#{userId},#{userName},#{addPoint},#{addDesc},#{addTime})
+    </insert>
+
+    <update id="addPoint2" parameterType="com.codejie.pms.entity.AddPoint">
+        update user set kpiSum=kpiSum+#{addPoint} where userId=#{userId}
+    </update>
+
+
+
+    <select id="selectDepartment" resultType="com.codejie.pms.entity.Department" parameterType="com.codejie.pms.entity.Department">
+        SELECT
+        *
+        FROM
+        department
+        WHERE
+        departmentId = #{departmentId}
+    </select>
+
+    <!--开发部KPI列表 1 -->
+    <select id="selectKpiList4" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 11
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd4" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint4" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department
+        set departmentKpi=departmentKpi+#{addPoint}
+        where departmentId=#{departmentId}
+    </update>
+    <!--开发部KPI列表 2 -->
+    <select id="selectKpiList5" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 12
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd5" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint5" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department
+        set departmentKpi=departmentKpi+#{addPoint}
+        where departmentId=#{departmentId}
+    </update>
+
+    <!--运营部KPI列表 1 -->
+    <select id="selectKpiList6" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 21
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd6" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint6" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department
+        set departmentKpi=departmentKpi+#{addPoint}
+        where departmentId=#{departmentId}
+    </update>
+
+    <!--运营部KPI列表 2 -->
+    <select id="selectKpiList7" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 22
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd7" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint7" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department set departmentKpi=departmentKpi+#{addPoint} where departmentId=#{departmentId}
+    </update>
+
+    <!--人事部KPI列表 1 -->
+    <select id="selectKpiList8" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 31
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd8" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint8" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department set departmentKpi=departmentKpi+#{addPoint} where departmentId=#{departmentId}
+    </update>
+
+    <!--人事部KPI列表 2 -->
+    <select id="selectKpiList9" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 32
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd9" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint9" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department set departmentKpi=departmentKpi+#{addPoint} where departmentId=#{departmentId}
+    </update>
+    <!--市场部KPI列表 1 -->
+    <select id="selectKpiList10" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 41
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd10" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint10" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department set departmentKpi=departmentKpi+#{addPoint} where departmentId=#{departmentId}
+    </update>
+
+    <!--市场部KPI列表 2 -->
+    <select id="selectKpiList11" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 42
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd11" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint11" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department set departmentKpi=departmentKpi+#{addPoint} where departmentId=#{departmentId}
+    </update>
+    <!--财务部KPI列表 1 -->
+    <select id="selectKpiList12" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 51
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd12" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint12" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department set departmentKpi=departmentKpi+#{addPoint} where departmentId=#{departmentId}
+    </update>
+
+    <!--财务部KPI列表 2 -->
+    <select id="selectKpiList13" resultType="com.codejie.pms.entity.Kpi">
+        SELECT
+        *
+        FROM
+        kpi
+        where kpiProperty = 52
+        order by kpiId asc
+    </select>
+    <insert id="kpAdd13" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        insert into add_point_department(departmentId,departmentName,addPoint,addDesc,addTime,quarter,checkId)
+        values (#{departmentId},#{departmentName},#{addPoint},#{addDesc},#{addTime},#{quarter},#{checkId})
+    </insert>
+    <update id="addPoint13" parameterType="com.codejie.pms.entity.AddPointDepartment">
+        update department set departmentKpi=departmentKpi+#{addPoint} where departmentId=#{departmentId}
     </update>
 
 </mapper>

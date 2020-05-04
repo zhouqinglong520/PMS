@@ -49,9 +49,9 @@ function addPoint() {
                     + "<td>" + content.departmentId + "</td>"
                     + "<td>" + content.phone + "</td>"
                     + "<td>" + content.kpiSum + "</td>"
-                    + "<td>" + gb + "</td>"
+                   /* + "<td>" + gb + "</td>"*/
                     + "<td><a class='user-msg' href='/hr/getUser?userId="+content.userId+"'>录入信息</a></td>"
-                    + "<td><a class='user-msg' href='/admin/all_kpi2?userId="+content.userId+"'>进入考核</a></td>"
+                    + "<td><a class='user-msg' href='/admin/add_kp2?userId="+content.userId+"'>进入考核</a></td>"
                     + "</tr>";
                 $("#table_add tbody").append(trHTML);//在table最后面添加一行
             }

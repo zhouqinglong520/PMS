@@ -14,13 +14,9 @@ function initSelect() {
         async : true,                   //是否异步请求
         success : function(data) {      //如果请求成功，返回数据。
             var quarter = data.quarter;
-            var weekNum = data.weekNum;
             var qdList = data.qdList;
             for(var i=0;i<quarter.length;i++){
                 $(".chooseQuarter").append("<option value="+quarter[i]+">"+quarter[i]+"</option>");
-            }
-            for(var i=0;i<weekNum.length;i++){
-                $(".chooseWeek").append("<option value="+weekNum[i]+">第"+weekNum[i]+"周</option>");
             }
             for(var i=0;i<qdList.length;i++){
                 $(".chooseQd").append("<option value="+qdList[i].departmentId+">"+qdList[i].departmentName+"</option>");
@@ -135,7 +131,7 @@ function initWeekDepartment() {
         url: "/admin/getWeekData",    //请求发送到TestServlet处
         data : {
             "quarter":$("#chooseQuarter3").val(),
-            "weekNum":$("#chooseWeek3").val()
+            //"weekNum":$("#chooseWeek3").val()
         },
         dataType : "json",        //返回数据形式为json
         success: function (result) {
@@ -233,7 +229,7 @@ function initCheck2() {
         url: "/admin/getWeekData2",    //请求发送到TestServlet处
         data : {
             "quarter":$("#chooseQuarter4").val(),
-            "weekNum":$("#chooseWeek4").val()
+            //"weekNum":$("#chooseWeek4").val()
         },
         dataType : "json",        //返回数据形式为json
         success: function (result) {
@@ -331,7 +327,7 @@ function initZhanbi() {
         url: "/admin/getWeekData3",    //请求发送到TestServlet处
         data : {
             "quarter":$("#chooseQuarter1").val(),
-            "weekNum":$("#chooseWeek1").val(),
+            //"weekNum":$("#chooseWeek1").val(),
             "departmentId":$("#chooseQd1").val()
         },
         dataType : "json",        //返回数据形式为json

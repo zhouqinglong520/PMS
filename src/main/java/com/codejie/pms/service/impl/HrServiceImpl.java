@@ -64,13 +64,21 @@ public class HrServiceImpl implements HrService {
 
     @Override
     public void addExcellentKpi(UserExcellentKpi userExcellentKpi) {
-        DeletePoint deletePoint = new DeletePoint();
+        AddPoint addPoint = new AddPoint();
+        addPoint.setUserId(userExcellentKpi.getUserId());
+        addPoint.setUserName(userExcellentKpi.getUserName());
+        addPoint.setAddPoint(userExcellentKpi.getKpiPoint());
+        hrMapper.addPoint(addPoint);
+        hrMapper.addExcellentKpi(userExcellentKpi);
+        hrMapper.delExcellentKpiTj(userExcellentKpi);
+
+      /*  DeletePoint deletePoint = new DeletePoint();
         deletePoint.setUserId(userExcellentKpi.getUserId());
         deletePoint.setUserName(userExcellentKpi.getUserName());
         deletePoint.setDeletePoint(userExcellentKpi.getKpiPoint());
         hrMapper.delPoint(deletePoint);
         hrMapper.addExcellentKpi(userExcellentKpi);
-        hrMapper.delExcellentKpiTj(userExcellentKpi);
+        hrMapper.delExcellentKpiTj(userExcellentKpi);*/
     }
 
     @Override

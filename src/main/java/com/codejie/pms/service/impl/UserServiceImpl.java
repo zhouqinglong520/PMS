@@ -101,6 +101,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Kpi> selectKpiList1(Kpi kpi, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return userMapper.selectKpiList1();
+    }
+
+    @Override
+    public List<Kpi> selectKpiList1() {
+        return userMapper.selectKpiList1();
+    }
+
+    @Override
     public void addKpi(Kpi kpi) {
         userMapper.addKpi(kpi);
 
